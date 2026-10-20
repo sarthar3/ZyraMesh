@@ -97,3 +97,112 @@ export interface BenchmarkMetric {
   sample_size: number;
   timestamp: string;
 }
+
+export interface DistillationJob {
+  id: string;
+  name: string;
+  description?: string;
+  status: 'PENDING' | 'RUNNING' | 'COMPLETED' | 'FAILED' | 'CANCELLED';
+  teacher_model: string;
+  student_base: string;
+  distillation_strategy: string;
+  dataset_size: number;
+  epochs: number;
+  current_epoch: number;
+  current_step: number;
+  total_steps: number;
+  progress_percentage: number;
+  latency_reduction_pct: number;
+  cost_reduction_pct: number;
+  compression_ratio: string;
+  accuracy_retention_pct: number;
+  teacher_latency_ms: number;
+  student_latency_ms: number;
+  export_format: string;
+  loss_history?: Array<{
+    epoch: number;
+    step: number;
+    global_step: number;
+    total_loss: number;
+    ce_loss: number;
+    kl_loss: number;
+    perplexity: number;
+    tokens_per_sec: number;
+    timestamp: string;
+  }>;
+  ollama_modelfile?: string;
+  export_path?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface DistillationDataset {
+  id: string;
+  name: string;
+  description?: string;
+  domain: string;
+  source: string;
+  num_samples: number;
+  avg_trust_score: number;
+  avg_uncertainty: number;
+  created_at: string;
+}
+
+export interface DistilledModel {
+  id: string;
+  name: string;
+  description?: string;
+  base_architecture: string;
+  teacher_lineage: string;
+  parameters: string;
+  quantization: string;
+  model_size_mb: number;
+  avg_latency_ms: number;
+  accuracy_retention: number;
+  ram_usage_mb: number;
+  status: string;
+  ollama_model_name?: string;
+  download_url?: string;
+  api_endpoint?: string;
+  created_at: string;
+}
+
+export interface DistillationInferenceResult {
+  prompt: string;
+  student: {
+    model: string;
+    latency_ms: number;
+    tokens_generated: number;
+    cost_usd: number;
+    memory_footprint_mb: number;
+    execution_environment: string;
+    text: string;
+  };
+  teacher?: {
+    model: string;
+    latency_ms: number;
+    tokens_generated: number;
+    cost_usd: number;
+    memory_footprint_mb: number;
+    execution_environment: string;
+    text: string;
+  };
+  comparison: {
+    speedup_factor: string;
+    latency_reduction_pct: number;
+    cost_reduction_pct: number;
+    semantic_fidelity_score: number;
+    recommendation: string;
+  };
+}
+
+export interface PricingROI {
+  monthly_requests: number;
+  cloud_teacher_cost_monthly: number;
+  distilled_model_cost_monthly: number;
+  net_savings_monthly: number;
+  savings_percentage: number;
+  annual_savings: number;
+  latency_reduction_factor: string;
+}
+

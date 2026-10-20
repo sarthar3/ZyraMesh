@@ -16,6 +16,7 @@ import { TrustAnalyticsPage } from './pages/TrustAnalyticsPage';
 import { WorkflowHistoryPage } from './pages/WorkflowHistoryPage';
 import { EvaluationPage } from './pages/EvaluationPage';
 import { AdminManagementPage } from './pages/AdminManagementPage';
+import { DistillationStudioPage } from './pages/DistillationStudioPage';
 
 export function App() {
   return (
@@ -23,6 +24,7 @@ export function App() {
       <DashboardLayout>
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/distill" element={<DistillationStudioPage />} />
           <Route path="/marketplace" element={<MarketplacePage />} />
           <Route path="/marketplace/:agentId" element={<AgentDetailPage />} />
           <Route path="/submit" element={<TaskSubmissionPage />} />
@@ -41,5 +43,6 @@ export function App() {
     </Router>
   );
 }
+
 
 export default App;

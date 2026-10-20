@@ -81,22 +81,24 @@ docker-compose up --build
 
 ---
 
-## 4. 14 Live Dashboard Pages (Module 19)
+## 4. 15 Live Dashboard Pages
 
 1. **Home / Overview** (`/`): Dynamic real-time statistics, active agent count, total workflows, avg latency, avg trust, and top calibrated marketplace agents.
-2. **Agent Marketplace** (`/marketplace`): Marketplace grid view with capability, category, trust, cost, and availability filters.
-3. **Agent Details** (`/marketplace/:agentId`): Capability breakdown, expected latency, token cost, trust history timeline, and collaboration links.
-4. **Task Submission** (`/submit`): Natural language objective prompt input with max budget, SLA deadline, risk tolerance, and ablation toggles.
-5. **TDG Visualization** (`/tdg`): Interactive React Flow task dependency graph DAG showing node execution states.
-6. **ACTG Visualization** (`/actg`): Network topology graph mapping Agents, Capabilities, Tools, and Collaboration edges.
-7. **Team Formation View** (`/team`): Constrained matching assignment breakdown with explicit AI selection explanations.
-8. **Live Workflow Execution** (`/execution`): Real-time event log, progress bars, task states, and output streams.
-9. **Uncertainty Gate** (`/uncertainty`): Multi-signal uncertainty gate inspector evaluating aleatoric entropy, schema validity, and propagation risk.
-10. **Re-Orchestration View** (`/reorchestration`): In-flight rerouting visualizer showing failed agent, candidate ranking, replacement selection, and task continuation.
-11. **Trust Analytics** (`/trust`): Bayesian trust update leaderboard and observation log.
-12. **Workflow History** (`/history`): Workflow audit trace log viewer with downloadable JSON export.
-13. **Evaluation Dashboard** (`/evaluation`): Empirical benchmark results across 6 baselines, 7 ablation configurations, stress testing (10 to 250 agents), and CSV/JSON export.
-14. **Admin Management & Demo Panel** (`/admin`): Agent registration console and **Module 27 Failure Simulation Controller**.
+2. **Distillation Studio (DaaS)** (`/distill`): **Flagship Real-Market Module** — Compresses heavy multi-agent orchestration and frontier LLMs into ultra-fast, edge-deployable compact student models (sub-60ms, 99% cost reduction, zero GPU fees). Features live Side-by-Side Inference Arena, Training Convergence Monitor, Model Registry with 1-click Ollama export, and Commercial ROI Calculator.
+3. **Agent Marketplace** (`/marketplace`): Marketplace grid view with capability, category, trust, cost, and availability filters.
+4. **Agent Details** (`/marketplace/:agentId`): Capability breakdown, expected latency, token cost, trust history timeline, and collaboration links.
+5. **Task Submission** (`/submit`): Natural language objective prompt input with max budget, SLA deadline, risk tolerance, and ablation toggles.
+6. **TDG Visualization** (`/tdg`): Interactive React Flow task dependency graph DAG showing node execution states.
+7. **ACTG Visualization** (`/actg`): Network topology graph mapping Agents, Capabilities, Tools, and Collaboration edges.
+8. **Team Formation View** (`/team`): Constrained matching assignment breakdown with explicit AI selection explanations.
+9. **Live Workflow Execution** (`/execution`): Real-time event log, progress bars, task states, and output streams.
+10. **Uncertainty Gate** (`/uncertainty`): Multi-signal uncertainty gate inspector evaluating aleatoric entropy, schema validity, and propagation risk.
+11. **Re-Orchestration View** (`/reorchestration`): In-flight rerouting visualizer showing failed agent, candidate ranking, replacement selection, and task continuation.
+12. **Trust Analytics** (`/trust`): Bayesian trust update leaderboard and observation log.
+13. **Workflow History** (`/history`): Workflow audit trace log viewer with downloadable JSON export.
+14. **Evaluation Dashboard** (`/evaluation`): Empirical benchmark results across 6 baselines, 7 ablation configurations, stress testing (10 to 250 agents), and CSV/JSON export.
+15. **Admin Management & Demo Panel** (`/admin`): Agent registration console and **Module 27 Failure Simulation Controller**.
+
 
 ---
 

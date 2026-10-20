@@ -6,6 +6,8 @@ from app.core.exceptions import ZyraException, zyra_exception_handler, unhandled
 from app.database import engine, Base, SessionLocal
 from app.api.v1.router import api_v1_router
 from app.services.marketplace import seed_marketplace
+from app.distillation.dataset_generator import create_seed_datasets
+from app.distillation.engine import seed_distilled_models
 
 # Setup Structured Logging
 setup_logging()
@@ -14,7 +16,7 @@ app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     openapi_url=f"{settings.API_V1_STR}/openapi.json",
-    description="Zyra Mesh - Trust-Calibrated Dual-Graph Agent Team Formation with Uncertainty-Gated Re-Orchestration"
+    description="Zyra Mesh - Trust-Calibrated Dual-Graph Agent Team Formation with Uncertainty-Gated Re-Orchestration & Distillation as a Service (DaaS)"
 )
 
 # Custom Exception Handlers
@@ -32,13 +34,16 @@ app.add_middleware(
 
 @app.on_event("startup")
 def on_startup():
-    logger.info("Starting up Zyra Mesh backend service...")
+    logger.info("Starting up Zyra Mesh backend service with DaaS Engine...")
     Base.metadata.create_all(bind=engine)
     db = SessionLocal()
     try:
         seed_marketplace(db)
+        create_seed_datasets(db)
+        seed_distilled_models(db)
     finally:
         db.close()
+
 
 # Mount API v1 router
 app.include_router(api_v1_router, prefix=settings.API_V1_STR)

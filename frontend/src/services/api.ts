@@ -1,6 +1,10 @@
-import type { Agent, Workflow, ExecutionLog, TrustLeaderboardItem, BenchmarkMetric } from '../types';
+import type { 
+  Agent, Workflow, ExecutionLog, TrustLeaderboardItem, BenchmarkMetric,
+  DistillationJob, DistillationDataset, DistilledModel, DistillationInferenceResult, PricingROI 
+} from '../types';
 
 const API_BASE = '/api/v1';
+
 
 export const api = {
   // Agents
@@ -187,5 +191,103 @@ export const api = {
     const res = await fetch(`${API_BASE}/simulations/state`);
     if (!res.ok) throw new Error('Failed to fetch simulation state');
     return res.json();
+  },
+
+  // Distillation as a Service (DaaS)
+  async getDistillationJobs(): Promise<DistillationJob[]> {
+    const res = await fetch(`${API_BASE}/distill/jobs`);
+    if (!res.ok) throw new Error('Failed to fetch distillation jobs');
+    return res.json();
+  },
+
+  async getDistillationJob(jobId: string): Promise<DistillationJob> {
+    const res = await fetch(`${API_BASE}/distill/jobs/${jobId}`);
+    if (!res.ok) throw new Error('Failed to fetch distillation job details');
+    return res.json();
+  },
+
+  async createDistillationJob(payload: {
+    name: string;
+    description?: string;
+    teacher_model: string;
+    student_base: string;
+    distillation_strategy: string;
+    dataset_id?: string;
+    epochs?: number;
+    batch_size?: number;
+    learning_rate?: number;
+    temperature?: number;
+    alpha_kd?: number;
+    export_format?: string;
+  }): Promise<DistillationJob> {
+    const res = await fetch(`${API_BASE}/distill/jobs`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('Failed to create distillation job');
+    return res.json();
+  },
+
+  async cancelDistillationJob(jobId: string): Promise<DistillationJob> {
+    const res = await fetch(`${API_BASE}/distill/jobs/${jobId}/cancel`, { method: 'POST' });
+    if (!res.ok) throw new Error('Failed to cancel distillation job');
+    return res.json();
+  },
+
+  async getDistillationDatasets(): Promise<DistillationDataset[]> {
+    const res = await fetch(`${API_BASE}/distill/datasets`);
+    if (!res.ok) throw new Error('Failed to fetch distillation datasets');
+    return res.json();
+  },
+
+  async generateDistillationDataset(payload: {
+    name: string;
+    domain: string;
+    num_samples: number;
+    teacher_source: string;
+    uncertainty_threshold: number;
+  }): Promise<DistillationDataset> {
+    const res = await fetch(`${API_BASE}/distill/generate-dataset`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('Failed to generate dataset');
+    return res.json();
+  },
+
+  async getDistilledModels(): Promise<DistilledModel[]> {
+    const res = await fetch(`${API_BASE}/distill/models`);
+    if (!res.ok) throw new Error('Failed to fetch distilled models');
+    return res.json();
+  },
+
+  async runDistillationInference(payload: {
+    prompt: string;
+    student_model_id?: string;
+    teacher_model?: string;
+    compare_teacher?: boolean;
+  }): Promise<DistillationInferenceResult> {
+    const res = await fetch(`${API_BASE}/distill/infer`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('Failed to execute distillation inference');
+    return res.json();
+  },
+
+  async getPricingROI(monthlyRequests: number = 100000, teacherCost: number = 15.0): Promise<PricingROI> {
+    const res = await fetch(`${API_BASE}/distill/roi?monthly_requests=${monthlyRequests}&teacher_cost_per_1m=${teacherCost}`);
+    if (!res.ok) throw new Error('Failed to calculate pricing ROI');
+    return res.json();
+  },
+
+  async exportDistilledModel(modelId: string): Promise<any> {
+    const res = await fetch(`${API_BASE}/distill/export/${encodeURIComponent(modelId)}`);
+    if (!res.ok) throw new Error('Failed to export model');
+    return res.json();
   }
 };
+

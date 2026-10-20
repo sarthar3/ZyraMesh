@@ -2,11 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { 
   Home, Store, Send, Network, GitGraph, Users, PlayCircle, 
-  ShieldAlert, RefreshCw, BarChart3, History, TestTube2, Settings 
+  ShieldAlert, RefreshCw, BarChart3, History, TestTube2, Settings, Zap 
 } from 'lucide-react';
 
 const navItems = [
   { path: '/', label: 'Home Overview', icon: Home },
+  { path: '/distill', label: 'Distillation Studio (DaaS)', icon: Zap, badge: 'DaaS' },
   { path: '/marketplace', label: 'Agent Marketplace', icon: Store },
   { path: '/submit', label: 'Submit Objective', icon: Send },
   { path: '/tdg', label: 'Task Graph (TDG)', icon: Network },
@@ -20,6 +21,7 @@ const navItems = [
   { path: '/evaluation', label: 'Benchmarks & Metrics', icon: TestTube2 },
   { path: '/admin', label: 'Agent Registry Admin', icon: Settings },
 ];
+
 
 export const Navigation: React.FC = () => {
   return (
@@ -58,11 +60,21 @@ export const Navigation: React.FC = () => {
                 }`
               }
             >
-              <Icon className={`w-4 h-4 ${isRose ? 'text-rose-600' : 'text-lime-600'}`} />
-              <span>{item.label}</span>
+              <div className="flex items-center justify-between w-full">
+                <div className="flex items-center space-x-3">
+                  <Icon className={`w-4 h-4 ${isRose ? 'text-rose-600' : 'text-lime-600'}`} />
+                  <span>{item.label}</span>
+                </div>
+                {item.badge && (
+                  <span className="text-[9px] px-1.5 py-0.5 rounded-full font-extrabold bg-lime-700 text-white shadow-2xs tracking-wider">
+                    {item.badge}
+                  </span>
+                )}
+              </div>
             </NavLink>
           );
         })}
+
       </nav>
     </aside>
   );
