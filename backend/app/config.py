@@ -15,6 +15,23 @@ class Settings(BaseSettings):
     GEMINI_API_KEY: str = ""
     GEMINI_DEFAULT_MODEL: str = "gemini-1.5-flash"
     
+    # NVIDIA NIM Provider
+    NVIDIA_API_KEY: str = ""
+    NVIDIA_DEFAULT_MODEL: str = "meta/llama-3.1-70b-instruct"
+    NVIDIA_BASE_URL: str = "https://integrate.api.nvidia.com/v1"
+    
+    # Speechmatics Voice-to-Text
+    SPEECHMATICS_API_KEY: str = ""
+    
+    # Testmail Notifications & Audit
+    TESTMAIL_API_KEY: str = ""
+    TESTMAIL_NAMESPACE: str = "u5api"
+    
+    # Security Settings
+    SECRET_KEY: str = "zyra-secret-key-change-in-production-2026"
+    ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 1440
+
     # Execution & Trust Engine Settings
     DEFAULT_TRUST_MEAN: float = 0.5
     DEFAULT_TRUST_UNCERTAINTY: float = 0.5
@@ -24,5 +41,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         case_sensitive = True
+        extra = "ignore"
+
 
 settings = Settings()

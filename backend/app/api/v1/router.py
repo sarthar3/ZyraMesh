@@ -10,6 +10,7 @@ from app.api.v1.auth import router as auth_router
 from app.api.v1.simulation import router as simulation_router
 from app.api.v1.stats import router as stats_router
 from app.api.v1.distill import router as distill_router
+from app.api.v1.voice import router as voice_router
 
 api_v1_router = APIRouter()
 api_v1_router.include_router(health_router)
@@ -23,4 +24,6 @@ api_v1_router.include_router(auth_router)
 api_v1_router.include_router(simulation_router)
 api_v1_router.include_router(stats_router)
 api_v1_router.include_router(distill_router)
+api_v1_router.include_router(voice_router)
+
 
