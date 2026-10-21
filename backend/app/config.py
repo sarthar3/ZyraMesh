@@ -9,11 +9,11 @@ class Settings(BaseSettings):
     DATABASE_URL: str = "sqlite:///./zyra_mesh.db"
     
     # AI Backend Providers
-    DEFAULT_LLM_PROVIDER: str = "mock" # "ollama", "gemini", "mock"
+    DEFAULT_LLM_PROVIDER: str = "gemini" # "gemini", "ollama", "mock"
     OLLAMA_BASE_URL: str = "http://localhost:11434"
     OLLAMA_DEFAULT_MODEL: str = "qwen2.5:1.5b-instruct"
     GEMINI_API_KEY: str = ""
-    GEMINI_DEFAULT_MODEL: str = "gemini-1.5-flash"
+    GEMINI_DEFAULT_MODEL: str = "gemini-flash-latest"
     
     # NVIDIA NIM Provider
     NVIDIA_API_KEY: str = ""
